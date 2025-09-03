@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pick Our Call Time</title>
+  <title>Schedule Our Call</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -17,7 +17,6 @@
       --card-bg: rgba(255, 255, 255, 0.05);
       --card-border: rgba(0, 245, 212, 0.2);
     }
-
     body {
       font-family: 'Poppins', 'Segoe UI', sans-serif;
       background: linear-gradient(135deg, var(--background-start), var(--background-end));
@@ -30,42 +29,20 @@
       overflow: hidden;
       position: relative;
     }
-
     .background-shapes {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
     }
-
     .shape {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(90px);
-      opacity: 0.15;
+      position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.15;
     }
-
-    /* --- NEW: Animated Background Shapes --- */
     .shape1 {
-      width: 350px;
-      height: 350px;
-      top: 10%;
-      left: 15%;
-      background: var(--primary-glow);
+      width: 350px; height: 350px; top: 10%; left: 15%; background: var(--primary-glow);
       animation: moveShape1 20s infinite alternate ease-in-out;
     }
-
     .shape2 {
-      width: 300px;
-      height: 300px;
-      bottom: 10%;
-      right: 15%;
-      background: var(--secondary-glow);
+      width: 300px; height: 300px; bottom: 10%; right: 15%; background: var(--secondary-glow);
       animation: moveShape2 25s infinite alternate ease-in-out;
     }
-
     @keyframes moveShape1 {
       from { transform: translate(0, 0) rotate(0deg); }
       to { transform: translate(50px, 100px) rotate(90deg); }
@@ -74,248 +51,206 @@
       from { transform: translate(0, 0) rotate(0deg); }
       to { transform: translate(-100px, -50px) rotate(-90deg); }
     }
-
-    /* --- NEW: Intro Animation for Container --- */
     .container {
-      background: var(--card-bg);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 40px 50px;
-      text-align: center;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-      max-width: 500px;
-      width: 90%;
-      animation: fadeInUp 1s ease-out forwards;
-      opacity: 0;
+      background: var(--card-bg); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+      border: 1px solid var(--card-border); border-radius: 20px; padding: 40px;
+      text-align: center; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      max-width: 500px; width: 90%; animation: fadeInUp 1s ease-out forwards; opacity: 0;
     }
-
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-
-    /* --- NEW: Gradient Text Title --- */
+    .avatar {
+        width: 80px; height: 80px; border-radius: 50%;
+        border: 2px solid var(--primary-glow); margin: 0 auto 15px auto;
+        box-shadow: 0 0 15px var(--primary-glow);
+    }
     h1 {
-      font-size: 2.8em;
-      font-weight: 700;
-      margin-bottom: 15px;
+      font-size: 2.5em; font-weight: 700; margin-bottom: 10px;
       background: linear-gradient(90deg, var(--primary-glow), #fff, var(--secondary-glow));
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: gradient-animation 5s ease infinite;
+      background-size: 200% 200%; -webkit-background-clip: text; background-clip: text;
+      color: transparent; animation: gradient-animation 5s ease infinite;
     }
-
     @keyframes gradient-animation {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
+        0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; }
     }
-
-    p {
-      margin-bottom: 30px;
-      font-size: 1.1em;
-      font-weight: 300;
-      line-height: 1.6;
-    }
-
-    .slots-container {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
+    p { margin-bottom: 25px; font-size: 1.1em; font-weight: 300; line-height: 1.6; }
+    .slots-container { display: flex; flex-direction: column; gap: 15px; }
     .slot {
-      padding: 15px 25px;
-      border: 1px solid var(--primary-glow);
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      font-size: 1.2em;
-      font-weight: 400;
-      background: transparent;
-      color: var(--text-color);
-      position: relative;
-      overflow: hidden;
+      padding: 15px 20px; border: 1px solid var(--primary-glow); border-radius: 12px;
+      cursor: pointer; transition: all 0.3s ease; font-size: 1.2em; font-weight: 400;
+      background: transparent; color: var(--text-color);
     }
-
-    .slot::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      background: var(--primary-glow);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: width 0.4s ease, height 0.4s ease;
-      z-index: -1;
-      opacity: 0;
-    }
-
     .slot:hover {
-      color: #111;
-      transform: translateY(-5px);
-      box-shadow: 0 0 25px var(--primary-glow);
-    }
-    
-    .slot:hover::before {
-      width: 250%;
-      height: 500px;
-      opacity: 1;
-    }
-    
-    .slot.disabled {
-        pointer-events: none;
-        opacity: 0.5;
+      color: #111; background-color: var(--primary-glow);
+      transform: translateY(-5px); box-shadow: 0 0 25px var(--primary-glow);
     }
 
-    #result {
-      margin-top: 30px;
-      font-size: 1.3em;
-      font-weight: 600;
-      color: var(--secondary-glow);
-      text-shadow: 0 0 8px var(--secondary-glow);
-      min-height: 60px;
-      transition: opacity 0.5s;
+    /* --- NEW & IMPROVED: Confirmation Area --- */
+    #confirmation-area {
+      margin-top: 25px; min-height: 120px;
     }
-
+    .confirmation-message {
+        font-size: 1.5em;
+        font-weight: 600;
+        color: var(--secondary-glow);
+        text-shadow: 0 0 8px var(--secondary-glow);
+        margin-bottom: 15px;
+    }
+    .confirmation-actions a {
+        display: inline-block; margin: 5px; padding: 10px 15px; border-radius: 8px;
+        text-decoration: none; font-weight: 600; transition: transform 0.2s, box-shadow 0.2s;
+        font-size: 0.9em;
+    }
+    .action-email { background-color: var(--secondary-glow); color: #111; }
+    .action-gcal, .action-ics { background-color: transparent; color: var(--primary-glow); border: 1px solid var(--primary-glow); }
+    
+    .confirmation-actions a:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 15px var(--secondary-glow);
+    }
+    .action-gcal:hover, .action-ics:hover { box-shadow: 0 0 15px var(--primary-glow); }
+    
+    .suggest-another-time {
+        margin-top: 20px; background: none; border: none; color: var(--text-color);
+        opacity: 0.7; text-decoration: underline; cursor: pointer; font-size: 0.9em;
+    }
     canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 1000;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000;
     }
   </style>
 </head>
 <body>
-
   <div class="background-shapes">
     <div class="shape shape1"></div>
     <div class="shape shape2"></div>
   </div>
-
   <div class="container">
-    <h1 id="main-title">📞 Schedule a Call</h1>
-    <p id="subtitle">Hey <span id="her-name">Zanouba</span>, here are some available slots.<br>Pick whichever fits your runtime 😉 (Casa Time)</p>
+    <img src="" alt="Your Avatar" class="avatar" id="avatar-img">
+    <h1 id="main-title">Schedule a Call</h1>
+    <p id="subtitle">Hey <span id="her-name-span"></span>, pick a time that works for you. All times are in <strong id="timezone-span"></strong>.</p>
     
-    <div class="slots-container">
-      <!-- REMOVED onclick="" from here. JS will handle it. -->
-      <div class="slot" data-time="Wednesday 20:00">04/09 20:00</div>
-      <div class="slot" data-time="Friday after 19:00">05/09 after 19:00</div>
-      <div class="slot" data-time="Sunday 15:00">06-07/09 15:00</div>
+    <!-- This container will be hidden after selection -->
+    <div id="selection-container">
+      <div id="slots-container" class="slots-container">
+        <!-- Time slots will be dynamically inserted here by JavaScript -->
+      </div>
+      <button id="suggest-another-time-btn" class="suggest-another-time">None of these times work for me</button>
     </div>
     
-    <p id="result"></p>
+    <div id="confirmation-area">
+        <!-- Confirmation message and actions will appear here -->
+    </div>
   </div>
   
   <canvas id="confetti-canvas"></canvas>
   
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script>
-    // --- NEW: Easy Configuration Section ---
+    // --- 🚀 EASY CONFIGURATION SECTION 🚀 ---
     const CONFIG = {
-      // ▼▼▼ IMPORTANT: CHANGE THESE VALUES! ▼▼▼
-      yourEmail: 'faid.mohamed@outlook.fr',
-      herName: 'Zanouba', // Or whatever her name is
+      yourEmail: 'faidm180@gmail.com',
       yourName: 'Mohamed',
-      // ▲▲▲ --- END OF CONFIGURATION --- ▲▲▲
+      avatarUrl: 'https://via.placeholder.com/150',
+      herName: 'Zanouba',
+      callTitle: 'Quick Chat',
+      callDurationMinutes: 30,
+      timeZone: 'Europe/London',
+      timeZoneDisplay: 'GMT+1',
+      timeSlots: [
+        { date: '2025-09-4T20:00', label: 'Thursday, Sep 4 at 20:00' },
+        { date: '2025-09-5T19:00', label: 'Friday, Sep 5 after 19:00' },
+        { date: '2025-09-6T15:00', label: 'Saturday, Sep 6 at 15:00' },
+      ]
     };
 
-    // --- REFACTORED AND IMPROVED SCRIPT ---
+    // --- MAIN SCRIPT ---
     document.addEventListener('DOMContentLoaded', () => {
-      // Personalize the page
-      document.getElementById('her-name').textContent = CONFIG.herName;
-      
-      const resultElement = document.getElementById('result');
-      const slots = document.querySelectorAll('.slot');
+      document.getElementById('avatar-img').src = CONFIG.avatarUrl;
+      document.getElementById('main-title').textContent = `Schedule with ${CONFIG.yourName}`;
+      document.getElementById('her-name-span').textContent = CONFIG.herName;
+      document.getElementById('timezone-span').textContent = CONFIG.timeZoneDisplay;
 
-      slots.forEach(slot => {
-        slot.addEventListener('click', () => {
-          const time = slot.getAttribute('data-time');
-          handleSlotPick(time, slots, resultElement);
-        });
+      const slotsContainer = document.getElementById('slots-container');
+      CONFIG.timeSlots.forEach((slot, index) => {
+        const slotElement = document.createElement('div');
+        slotElement.className = 'slot';
+        slotElement.textContent = `${slot.label} (${CONFIG.timeZoneDisplay})`;
+        slotElement.dataset.index = index;
+        slotElement.addEventListener('click', handleSlotPick);
+        slotsContainer.appendChild(slotElement);
       });
+      
+      document.getElementById('suggest-another-time-btn').addEventListener('click', handleSuggestAnotherTime);
     });
 
-    function handleSlotPick(time, allSlots, resultElement) {
-      // 1. Disable all slots
-      allSlots.forEach(s => s.classList.add('disabled'));
+    function handleSlotPick(event) {
+      const selectedSlotIndex = event.target.dataset.index;
+      const selectedSlot = CONFIG.timeSlots[selectedSlotIndex];
+      
+      // Hide the selection area
+      document.getElementById('selection-container').style.display = 'none';
 
-      // 2. Create the pre-filled email link
-      const subject = `I picked a time for our call!`;
-      const body = `Hey ${CONFIG.yourName},\n\nI've picked ${time} for our call. Talk to you then!\n\n- ${CONFIG.herName}`;
-      const mailtoLink = `mailto:${CONFIG.yourEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const startTime = new Date(selectedSlot.date);
+      const endTime = new Date(startTime.getTime() + CONFIG.callDurationMinutes * 60000);
+      
+      const gCalLink = createGoogleCalendarLink(selectedSlot, startTime, endTime);
+      const icsDataUri = createIcsDataUri(selectedSlot, startTime, endTime);
+      // --- THE FIX: `target="_blank"` is removed from this link ---
+      const mailtoLink = createMailtoLink(selectedSlot.label);
 
-      // 3. Update the confirmation message
-      resultElement.innerHTML = `
-        ✅ Awesome choice! Just one last step:<br>
-        <a href="${mailtoLink}" class="confirm-button" target="_blank" id="confirmButton">Click Here to Confirm via Email</a>
+      const confirmationArea = document.getElementById('confirmation-area');
+      confirmationArea.innerHTML = `
+        <div class="confirmation-message">✅ Confirmed!</div>
+        <p>I've got you down for <strong>${selectedSlot.label}</strong>. Here are some helpful next steps:</p>
+        <div class="confirmation-actions">
+          <a href="${gCalLink}" class="action-gcal" target="_blank">Add to Google Calendar</a>
+          <a href="${icsDataUri}" class="action-ics">Add to Other Calendar (.ics)</a>
+          <a href="${mailtoLink}" class="action-email">Send a Confirmation Email</a>
+        </div>
       `;
       
-      // 4. Style the new button and add feedback
-      addButtonStyle();
-      document.getElementById('confirmButton').addEventListener('click', (e) => {
-        e.target.textContent = '✅ Email Opened!';
-        e.target.style.pointerEvents = 'none';
-        e.target.style.opacity = '0.7';
-      });
-
-      // 5. Launch the confetti
       launchConfetti();
     }
     
-    function addButtonStyle() {
-        const styleId = 'confirm-button-style';
-        if (document.getElementById(styleId)) return; // Don't add style twice
-
-        const style = document.createElement('style');
-        style.id = styleId;
-        style.textContent = `
-            .confirm-button {
-                display: inline-block;
-                margin-top: 15px;
-                padding: 10px 20px;
-                background-color: var(--secondary-glow);
-                color: #111;
-                border-radius: 8px;
-                text-decoration: none;
-                font-weight: 600;
-                transition: transform 0.2s, box-shadow 0.2s;
-            }
-            .confirm-button:hover {
-                transform: scale(1.05);
-                box-shadow: 0 0 15px var(--secondary-glow);
-            }
-        `;
-        document.head.appendChild(style);
+    function handleSuggestAnotherTime() {
+        const subject = `Let's find another time for our call`;
+        const body = `Hey ${CONFIG.yourName},\n\nThe available slots don't quite work for me. Are you free sometime around [Suggest a day/time]?\n\nBest,\n${CONFIG.herName}`;
+        window.location.href = `mailto:${CONFIG.yourEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     }
 
+    // Helper functions remain the same
+    function createMailtoLink(timeLabel) {
+        const subject = `Confirmed: ${CONFIG.callTitle} on ${timeLabel}`;
+        const body = `Hey ${CONFIG.yourName},\n\nSounds great! I've confirmed our call for ${timeLabel}.\n\nLooking forward to it!\n\n- ${CONFIG.herName}`;
+        return `mailto:${CONFIG.yourEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+    function createGoogleCalendarLink(slot, start, end) {
+        const formatDate = (date) => date.toISOString().replace(/-|:|\.\d{3}/g, '');
+        const url = new URL('https://www.google.com/calendar/render');
+        url.searchParams.append('action', 'TEMPLATE');
+        url.searchParams.append('text', `${CONFIG.callTitle}: ${CONFIG.yourName} & ${CONFIG.herName}`);
+        url.searchParams.append('dates', `${formatDate(start)}/${formatDate(end)}`);
+        url.searchParams.append('details', `Call between ${CONFIG.yourName} and ${CONFIG.herName}.`);
+        url.searchParams.append('ctz', CONFIG.timeZone);
+        return url.toString();
+    }
+    function createIcsDataUri(slot, start, end) {
+        const formatDate = (date) => date.toISOString().replace(/-|:|\.\d{3}/g, '') + 'Z';
+        const icsContent = [
+            'BEGIN:VCALENDAR', 'VERSION:2.0', 'BEGIN:VEVENT', `UID:${Date.now()}@schedulercall.com`,
+            `DTSTAMP:${formatDate(new Date())}`, `DTSTART:${formatDate(start)}`, `DTEND:${formatDate(end)}`,
+            `SUMMARY:${CONFIG.callTitle}: ${CONFIG.yourName} & ${CONFIG.herName}`, 'END:VEVENT', 'END:VCALENDAR'
+        ].join('\n');
+        return `data:text/calendar;charset=utf8,${encodeURIComponent(icsContent)}`;
+    }
     function launchConfetti() {
-      const canvas = document.getElementById('confetti-canvas');
-      if (!canvas) return;
-      const myConfetti = confetti.create(canvas, { resize: true, useWorker: true });
-      const duration = 2 * 1000;
-      const end = Date.now() + duration;
-      (function frame() {
-        myConfetti({ particleCount: 2, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#00f5d4', '#ffb703', '#ffffff'] });
-        myConfetti({ particleCount: 2, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#00f5d4', '#ffb703', '#ffffff'] });
-        if (Date.now() < end) { requestAnimationFrame(frame); }
-      }());
+        const canvas = document.getElementById('confetti-canvas');
+        if (!canvas) return;
+        const myConfetti = confetti.create(canvas, { resize: true, useWorker: true });
+        myConfetti({ particleCount: 150, spread: 180, origin: { y: 0.6 } });
     }
   </script>
 </body>
-</html>
+</html>F
