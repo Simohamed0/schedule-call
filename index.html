@@ -6,7 +6,7 @@
   <title>Pick Our Call Time</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary-glow: #00f5d4;
@@ -43,30 +43,43 @@
     .shape {
       position: absolute;
       border-radius: 50%;
-      background: var(--primary-glow);
-      opacity: 0.1;
-      filter: blur(80px);
+      filter: blur(90px);
+      opacity: 0.15;
     }
 
+    /* --- NEW: Animated Background Shapes --- */
     .shape1 {
-      width: 300px;
-      height: 300px;
+      width: 350px;
+      height: 350px;
       top: 10%;
       left: 15%;
+      background: var(--primary-glow);
+      animation: moveShape1 20s infinite alternate ease-in-out;
     }
 
     .shape2 {
-      width: 250px;
-      height: 250px;
-      bottom: 15%;
-      right: 20%;
+      width: 300px;
+      height: 300px;
+      bottom: 10%;
+      right: 15%;
       background: var(--secondary-glow);
+      animation: moveShape2 25s infinite alternate ease-in-out;
     }
 
+    @keyframes moveShape1 {
+      from { transform: translate(0, 0) rotate(0deg); }
+      to { transform: translate(50px, 100px) rotate(90deg); }
+    }
+    @keyframes moveShape2 {
+      from { transform: translate(0, 0) rotate(0deg); }
+      to { transform: translate(-100px, -50px) rotate(-90deg); }
+    }
+
+    /* --- NEW: Intro Animation for Container --- */
     .container {
       background: var(--card-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
       border: 1px solid var(--card-border);
       border-radius: 20px;
       padding: 40px 50px;
@@ -74,14 +87,38 @@
       box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
       max-width: 500px;
       width: 90%;
+      animation: fadeInUp 1s ease-out forwards;
+      opacity: 0;
     }
 
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* --- NEW: Gradient Text Title --- */
     h1 {
-      font-size: 2.5em;
-      font-weight: 600;
-      color: var(--primary-glow);
+      font-size: 2.8em;
+      font-weight: 700;
       margin-bottom: 15px;
-      text-shadow: 0 0 10px var(--primary-glow), 0 0 20px var(--primary-glow);
+      background: linear-gradient(90deg, var(--primary-glow), #fff, var(--secondary-glow));
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradient-animation 5s ease infinite;
+    }
+
+    @keyframes gradient-animation {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
     }
 
     p {
@@ -137,6 +174,11 @@
       height: 500px;
       opacity: 1;
     }
+    
+    .slot.disabled {
+        pointer-events: none;
+        opacity: 0.5;
+    }
 
     #result {
       margin-top: 30px;
@@ -144,7 +186,7 @@
       font-weight: 600;
       color: var(--secondary-glow);
       text-shadow: 0 0 8px var(--secondary-glow);
-      min-height: 60px; /* Adjusted for two lines */
+      min-height: 60px;
       transition: opacity 0.5s;
     }
 
@@ -167,13 +209,14 @@
   </div>
 
   <div class="container">
-    <h1>📞 Schedule a Call</h1>
-    <p>Hey [HerName], here are some available slots.<br>Pick whichever fits your runtime 😉</p>
+    <h1 id="main-title">📞 Schedule a Call</h1>
+    <p id="subtitle">Hey <span id="her-name">Zanouba</span>, here are some available slots.<br>Pick whichever fits your runtime 😉 (Casa Time)</p>
     
     <div class="slots-container">
-      <div class="slot" onclick="pick('Wednesday 20:00')">Wednesday 20:00</div>
-      <div class="slot" onclick="pick('Friday after 19:00')">Friday after 19:00</div>
-      <div class="slot" onclick="pick('Sunday 15:00')">Sunday 15:00</div>
+      <!-- REMOVED onclick="" from here. JS will handle it. -->
+      <div class="slot" data-time="Wednesday 20:00">04/09 20:00</div>
+      <div class="slot" data-time="Friday after 19:00">05/09 after 19:00</div>
+      <div class="slot" data-time="Sunday 15:00">06-07/09 15:00</div>
     </div>
     
     <p id="result"></p>
@@ -183,41 +226,64 @@
   
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script>
-    const resultElement = document.getElementById('result');
-    const slots = document.querySelectorAll('.slot');
+    // --- NEW: Easy Configuration Section ---
+    const CONFIG = {
+      // ▼▼▼ IMPORTANT: CHANGE THESE VALUES! ▼▼▼
+      yourEmail: 'faid.mohamed@outlook.fr',
+      herName: 'Zanouba', // Or whatever her name is
+      yourName: 'Mohamed',
+      // ▲▲▲ --- END OF CONFIGURATION --- ▲▲▲
+    };
 
-    function pick(time) {
-      // 1. Disable other slots to prevent multiple clicks
+    // --- REFACTORED AND IMPROVED SCRIPT ---
+    document.addEventListener('DOMContentLoaded', () => {
+      // Personalize the page
+      document.getElementById('her-name').textContent = CONFIG.herName;
+      
+      const resultElement = document.getElementById('result');
+      const slots = document.querySelectorAll('.slot');
+
       slots.forEach(slot => {
-        slot.style.pointerEvents = 'none';
-        slot.style.opacity = '0.5';
+        slot.addEventListener('click', () => {
+          const time = slot.getAttribute('data-time');
+          handleSlotPick(time, slots, resultElement);
+        });
       });
+    });
+
+    function handleSlotPick(time, allSlots, resultElement) {
+      // 1. Disable all slots
+      allSlots.forEach(s => s.classList.add('disabled'));
 
       // 2. Create the pre-filled email link
-      // ▼▼▼ IMPORTANT: CHANGE THIS EMAIL ADDRESS! ▼▼▼
-      const yourEmail = 'YOUR_EMAIL@example.com'; 
-      // ▲▲▲ IMPORTANT: CHANGE THIS EMAIL ADDRESS! ▲▲▲
-      
-      const subject = 'I picked a time for our call!';
-      const body = `Hey Mohamed,\n\nI've picked ${time} for our call. Talk to you then!\n\n- [HerName]`;
-      const mailtoLink = `mailto:${yourEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const subject = `I picked a time for our call!`;
+      const body = `Hey ${CONFIG.yourName},\n\nI've picked ${time} for our call. Talk to you then!\n\n- ${CONFIG.herName}`;
+      const mailtoLink = `mailto:${CONFIG.yourEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-      // 3. Update the confirmation message with a clear call-to-action button
+      // 3. Update the confirmation message
       resultElement.innerHTML = `
         ✅ Awesome choice! Just one last step:<br>
-        <a href="${mailtoLink}" class="confirm-button">Click Here to Confirm via Email</a>
+        <a href="${mailtoLink}" class="confirm-button" target="_blank" id="confirmButton">Click Here to Confirm via Email</a>
       `;
       
-      // 4. Style the new button
+      // 4. Style the new button and add feedback
       addButtonStyle();
+      document.getElementById('confirmButton').addEventListener('click', (e) => {
+        e.target.textContent = '✅ Email Opened!';
+        e.target.style.pointerEvents = 'none';
+        e.target.style.opacity = '0.7';
+      });
 
       // 5. Launch the confetti
       launchConfetti();
     }
     
-    // This function dynamically adds CSS for our new confirmation button
     function addButtonStyle() {
+        const styleId = 'confirm-button-style';
+        if (document.getElementById(styleId)) return; // Don't add style twice
+
         const style = document.createElement('style');
+        style.id = styleId;
         style.textContent = `
             .confirm-button {
                 display: inline-block;
@@ -238,15 +304,15 @@
         document.head.appendChild(style);
     }
 
-    // This is the function for the pretty confetti effect
     function launchConfetti() {
       const canvas = document.getElementById('confetti-canvas');
+      if (!canvas) return;
       const myConfetti = confetti.create(canvas, { resize: true, useWorker: true });
       const duration = 2 * 1000;
       const end = Date.now() + duration;
       (function frame() {
-        myConfetti({ particleCount: 2, angle: 60, spread: 55, origin: { x: 0 } });
-        myConfetti({ particleCount: 2, angle: 120, spread: 55, origin: { x: 1 } });
+        myConfetti({ particleCount: 2, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#00f5d4', '#ffb703', '#ffffff'] });
+        myConfetti({ particleCount: 2, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#00f5d4', '#ffb703', '#ffffff'] });
         if (Date.now() < end) { requestAnimationFrame(frame); }
       }());
     }
